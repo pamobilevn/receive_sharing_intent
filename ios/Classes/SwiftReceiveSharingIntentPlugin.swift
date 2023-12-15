@@ -17,7 +17,8 @@ public class SwiftReceiveSharingIntentPlugin: NSObject, FlutterPlugin, FlutterSt
     
     private var eventSinkMedia: FlutterEventSink? = nil;
     private var eventSinkText: FlutterEventSink? = nil;
-    
+    public var isUseCustomDomain: Bool = false;
+    public var customDomain:String = "";
     // Singleton is required for calling functions directly from AppDelegate
     // - it is required if the developer is using also another library, which requires to call "application(_:open:options:)"
     // -> see Example app
@@ -120,7 +121,10 @@ public class SwiftReceiveSharingIntentPlugin: NSObject, FlutterPlugin, FlutterSt
     
     private func handleUrl(url: URL?, setInitialData: Bool) -> Bool {
         if let url = url {
-            let appDomain = Bundle.main.bundleIdentifier!
+            var appDomain = Bundle.main.bundleIdentifier!
+            if(isUseCustomDomain){
+                appDomain = customDomain;
+            }
             let userDefaults = UserDefaults(suiteName: "group.\(appDomain)")
             if url.fragment == "media" {
                 if let key = url.host?.components(separatedBy: "=").last,
