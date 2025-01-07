@@ -6,7 +6,7 @@ import receive_sharing_intent
 @objc class AppDelegate: FlutterAppDelegate {
     override func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -19,8 +19,13 @@ import receive_sharing_intent
             return sharingIntent.application(app, open: url, options: options)
         }
         
-        // For example
-        // return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
-        return false
+         // For example load MSALPublicClientApplication
+         // return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
+
+         // Cancel url handling
+         // return false
+
+         // Proceed url handling for other Flutter libraries like uni_links
+         return super.application(app, open: url, options:options)
     }
 }
